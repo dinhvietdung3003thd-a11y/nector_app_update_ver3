@@ -1,98 +1,70 @@
 import React, { useState } from "react";
-import LoginScreen from "../screens/LoginScreen";
-import NumberScreen from "../screens/NumberScreen";
-import OnboardingScreen from "../screens/OnboardingScreen";
-import SelectLocationScreen from "../screens/SelectLocationScreen";
-import SignInScreen from "../screens/SignInScreen";
-import SignUpScreen from "../screens/SignUpScreen";
-import SplashScreen from "../screens/SplashScreen";
-import VerificationScreen from "../screens/VerificationScreen";
+import BeveragesScreen from "../screens/BeveragesScreen";
+import ExploreScreen from "../screens/ExploreScreen";
+import HomeScreen from "../screens/HomeScreen";
+import ProductDetailScreen from "../screens/ProductDetailScreen";
 
-type ScreenName =
-  | "splash"
-  | "onboarding"
-  | "signIn"
-  | "number"
-  | "verification"
-  | "location"
-  | "login"
-  | "signup";
+type ScreenName = "home" | "productDetail" | "explore" | "beverages";
 
 export default function Index() {
-  const [screen, setScreen] = useState<ScreenName>("splash");
-  const [phone, setPhone] = useState("+880");
-  const [code, setCode] = useState("");
-  const [zone, setZone] = useState("Banasree");
-  const [area, setArea] = useState("Types of your area");
+  const [screen, setScreen] = useState<ScreenName>("home");
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   switch (screen) {
-    case "splash":
-      return <SplashScreen onNext={() => setScreen("onboarding")} />;
-
-    case "onboarding":
-      return <OnboardingScreen onNext={() => setScreen("signIn")} />;
-
-    case "signIn":
+    case "home":
       return (
-        <SignInScreen
-          phone={phone}
-          onChangePhone={setPhone}
-          onBack={() => setScreen("onboarding")}
-          onNext={() => setScreen("number")}
-          onLogin={() => setScreen("login")}
-          onSignup={() => setScreen("signup")}
+        <HomeScreen
+          onExplore={() => setScreen("explore")}
+          onOpenProduct={(item: any) => {
+            setSelectedProduct(item);
+            setScreen("productDetail");
+          }}
         />
       );
 
-    case "number":
+    case "productDetail":
       return (
-        <NumberScreen
-          phone={phone}
-          onChangePhone={setPhone}
-          onBack={() => setScreen("signIn")}
-          onNext={() => setScreen("verification")}
+        <ProductDetailScreen
+          item={
+            selectedProduct || {
+              title: "Naturel Red Apple",
+              subtitle: "1kg, Price",
+              price: "$4.99",
+              image:
+                "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop",
+            }
+          }
+          onBack={() => setScreen("home")}
         />
       );
 
-    case "verification":
+    case "explore":
       return (
-        <VerificationScreen
-          code={code}
-          onChangeCode={setCode}
-          onBack={() => setScreen("number")}
-          onNext={() => setScreen("location")}
+        <ExploreScreen
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onOpenCategory={(category: any) => {
+            if (category.title.toLowerCase().includes("beverages")) {
+              setScreen("beverages");
+            }
+          }}
         />
       );
 
-    case "location":
+    case "beverages":
       return (
-        <SelectLocationScreen
-          zone={zone}
-          area={area}
-          onChangeZone={setZone}
-          onChangeArea={setArea}
-          onBack={() => setScreen("verification")}
-          onSubmit={() => setScreen("login")}
-        />
-      );
-
-    case "login":
-      return (
-        <LoginScreen
-          onBack={() => setScreen("location")}
-          onSignup={() => setScreen("signup")}
-        />
-      );
-
-    case "signup":
-      return (
-        <SignUpScreen
-          onBack={() => setScreen("login")}
-          onLogin={() => setScreen("login")}
+        <BeveragesScreen
+          onBack={() => setScreen("explore")}
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onOpenProduct={(item: any) => {
+            setSelectedProduct(item);
+            setScreen("productDetail");
+          }}
         />
       );
 
     default:
-      return <SplashScreen onNext={() => setScreen("onboarding")} />;
+      return null;
   }
 }

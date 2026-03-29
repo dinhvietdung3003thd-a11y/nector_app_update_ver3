@@ -6,9 +6,14 @@ import TextField from "../components/TextField";
 type Props = {
   onBack: () => void;
   onSignup: () => void;
+  onLoginSuccess: () => void;
 };
 
-export default function LoginScreen({ onSignup }: Props) {
+export default function LoginScreen({
+  onBack,
+  onSignup,
+  onLoginSuccess,
+}: Props) {
   const [email, setEmail] = useState("imshuvo97@gmail.com");
   const [password, setPassword] = useState("12345678");
 
@@ -40,7 +45,11 @@ export default function LoginScreen({ onSignup }: Props) {
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
 
-        <PrimaryButton title="Log In" style={styles.button} />
+        <PrimaryButton
+          title="Log In"
+          style={styles.button}
+          onPress={onLoginSuccess}
+        />
 
         <Text style={styles.bottomText}>
           Don’t have an account?{" "}

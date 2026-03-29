@@ -6,9 +6,14 @@ import TextField from "../components/TextField";
 type Props = {
   onBack: () => void;
   onLogin: () => void;
+  onSignUpSuccess: () => void;
 };
 
-export default function SignUpScreen({ onLogin }: Props) {
+export default function SignUpScreen({
+  onBack,
+  onLogin,
+  onSignUpSuccess,
+}: Props) {
   const [username, setUsername] = useState("Afsar Hossen Shuvo");
   const [email, setEmail] = useState("imshuvo97@gmail.com");
   const [password, setPassword] = useState("12345678");
@@ -46,17 +51,20 @@ export default function SignUpScreen({ onLogin }: Props) {
 
         <Text style={styles.terms}>
           By continuing you agree to our{" "}
-          <Text style={styles.link}>Terms of Service</Text>
-          {" "}and{" "}
+          <Text style={styles.link}>Terms of Service</Text> and{" "}
           <Text style={styles.link}>Privacy Policy</Text>.
         </Text>
 
-        <PrimaryButton title="Sign Up" style={styles.button} />
+        <PrimaryButton
+          title="Sign Up"
+          style={styles.button}
+          onPress={onSignUpSuccess}
+        />
 
         <Text style={styles.bottomText}>
           Already have an account?{" "}
           <Text style={styles.link} onPress={onLogin}>
-            Signup
+            Login
           </Text>
         </Text>
       </View>
@@ -94,11 +102,11 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   terms: {
-    width: "100%",
     fontSize: 14,
-    lineHeight: 20,
     color: "#7C7C7C",
-    marginBottom: 18,
+    lineHeight: 21,
+    marginTop: 6,
+    marginBottom: 28,
   },
   link: {
     color: "#53B175",
