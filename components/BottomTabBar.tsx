@@ -13,25 +13,6 @@ type Props = {
   onGoAccount?: () => void;
 };
 
-function TabItem({
-  icon,
-  label,
-  active,
-  onPress,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-  active?: boolean;
-  onPress?: () => void;
-}) {
-  return (
-    <TouchableOpacity style={styles.tab} onPress={onPress} activeOpacity={0.8}>
-      <Ionicons name={icon} size={24} color={active ? "#53B175" : "#181725"} />
-      <Text style={[styles.label, active && styles.labelActive]}>{label}</Text>
-    </TouchableOpacity>
-  );
-}
-
 export default function BottomTabBar({
   active,
   onGoHome,
@@ -40,38 +21,37 @@ export default function BottomTabBar({
   onGoFavourite,
   onGoAccount,
 }: Props) {
+  const activeColor = "#53B175";
+  const inactiveColor = "#181725";
+
+  const getColor = (tab: TabKey) => (active === tab ? activeColor : inactiveColor);
+
   return (
     <View style={styles.wrapper}>
-      <TabItem
-        icon="storefront-outline"
-        label="Shop"
-        active={active === "shop"}
-        onPress={onGoHome}
-      />
-      <TabItem
-        icon="search-outline"
-        label="Explore"
-        active={active === "explore"}
-        onPress={onGoExplore}
-      />
-      <TabItem
-        icon="cart-outline"
-        label="Cart"
-        active={active === "cart"}
-        onPress={onGoCart}
-      />
-      <TabItem
-        icon="heart-outline"
-        label="Favourite"
-        active={active === "favourite"}
-        onPress={onGoFavourite}
-      />
-      <TabItem
-        icon="person-outline"
-        label="Account"
-        active={active === "account"}
-        onPress={onGoAccount}
-      />
+      <TouchableOpacity style={styles.item} onPress={onGoHome}>
+        <Ionicons name="storefront-outline" size={24} color={getColor("shop")} />
+        <Text style={[styles.label, { color: getColor("shop") }]}>Shop</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={onGoExplore}>
+        <Ionicons name="search-outline" size={24} color={getColor("explore")} />
+        <Text style={[styles.label, { color: getColor("explore") }]}>Explore</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={onGoCart}>
+        <Ionicons name="cart-outline" size={24} color={getColor("cart")} />
+        <Text style={[styles.label, { color: getColor("cart") }]}>Cart</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={onGoFavourite}>
+        <Ionicons name="heart-outline" size={24} color={getColor("favourite")} />
+        <Text style={[styles.label, { color: getColor("favourite") }]}>Favourite</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={onGoAccount}>
+        <Ionicons name="person-outline" size={24} color={getColor("account")} />
+        <Text style={[styles.label, { color: getColor("account") }]}>Account</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -80,28 +60,27 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 92,
     backgroundColor: "#fff",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    paddingBottom: 16,
+    paddingTop: 12,
     shadowColor: "#555E58",
     shadowOffset: { width: 2, height: -5 },
     shadowOpacity: 0.09,
     shadowRadius: 15,
     elevation: 8,
   },
-  tab: {
+  item: {
     alignItems: "center",
     justifyContent: "center",
-    gap: 4,
+    flex: 1,
   },
   label: {
     fontSize: 12,
-    fontWeight: "500",
-    color: "#181725",
-  },
-  labelActive: {
-    color: "#53B175",
+    marginTop: 4,
+    fontWeight: "600",
   },
 });

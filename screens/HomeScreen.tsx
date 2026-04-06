@@ -17,9 +17,10 @@ import { homeProducts } from "../data/mockData";
 type Props = {
   onExplore: () => void;
   onOpenProduct: (item: any) => void;
+  onGoCart?: () => void;
+  onGoFavourite?: () => void;
 };
-
-export default function HomeScreen({ onExplore, onOpenProduct }: Props) {
+export default function HomeScreen({ onExplore, onOpenProduct, onGoCart, onGoFavourite }: Props) {
   const exclusive = homeProducts.slice(0, 2);
   const bestSelling = homeProducts.slice(2, 4);
   const groceries = homeProducts.slice(4, 8);
@@ -121,7 +122,13 @@ export default function HomeScreen({ onExplore, onOpenProduct }: Props) {
         </ScrollView>
       </ScrollView>
 
-      <BottomTabBar active="shop" onGoHome={() => {}} onGoExplore={onExplore} />
+      <BottomTabBar
+        active="shop"
+        onGoHome={() => {}}
+        onGoExplore={onExplore}
+        onGoCart={onGoCart}
+        onGoFavourite={onGoFavourite}
+      />
     </View>
   );
 }

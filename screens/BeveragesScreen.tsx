@@ -16,6 +16,9 @@ type Props = {
   onOpenProduct: (item: any) => void;
   onGoHome: () => void;
   onGoExplore: () => void;
+  onGoCart: () => void;
+  onGoFavourite: () => void;
+  onGoAccount?: () => void;
 };
 
 export default function BeveragesScreen({
@@ -23,6 +26,9 @@ export default function BeveragesScreen({
   onOpenProduct,
   onGoHome,
   onGoExplore,
+  onGoCart,
+  onGoFavourite,
+  onGoAccount,
 }: Props) {
   return (
     <View style={styles.container}>
@@ -58,7 +64,14 @@ export default function BeveragesScreen({
         )}
       />
 
-      <BottomTabBar active="explore" onGoHome={onGoHome} onGoExplore={onGoExplore} />
+      <BottomTabBar
+        active="explore"
+        onGoHome={onGoHome}
+        onGoExplore={onGoExplore}
+        onGoCart={onGoCart}
+        onGoFavourite={onGoFavourite}
+        onGoAccount={onGoAccount}
+      />
     </View>
   );
 }

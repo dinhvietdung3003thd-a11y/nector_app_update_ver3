@@ -10,16 +10,16 @@ import {
 } from "react-native";
 
 type Props = {
-  item: {
-    title: string;
-    subtitle: string;
-    price: string;
-    image: string;
-  };
+  product: any;
   onBack: () => void;
+  onGoHome: () => void;
+  onGoExplore: () => void;
+  onGoCart: () => void;
+  onGoFavourite: () => void;
 };
 
-export default function ProductDetailScreen({ item, onBack }: Props) {
+export default function ProductDetailScreen({ product, onBack }: Props) {
+  const item = product;
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

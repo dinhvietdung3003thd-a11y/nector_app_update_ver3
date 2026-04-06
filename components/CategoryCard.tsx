@@ -3,21 +3,21 @@ import { Image, Pressable, StyleSheet, Text } from "react-native";
 import { Category } from "../data/mockData";
 
 type Props = {
-  category: Category;
+  item: Category;
   onPress?: () => void;
 };
 
-export default function CategoryCard({ category, onPress }: Props) {
+export default function CategoryCard({ item, onPress }: Props) {
   return (
     <Pressable
       style={[
         styles.card,
-        { backgroundColor: category.backgroundColor, borderColor: category.borderColor },
+        { backgroundColor: item.bg, borderColor: item.border },
       ]}
       onPress={onPress}
     >
-      <Image source={{ uri: category.image }} style={styles.image} resizeMode="contain" />
-      <Text style={styles.title}>{category.title}</Text>
+      <Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
+      <Text style={styles.title}>{item.title}</Text>
     </Pressable>
   );
 }

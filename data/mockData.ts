@@ -1,4 +1,21 @@
-export const homeProducts = [
+export type Product = {
+  id: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  image: string;
+  category?: string;
+};
+
+export type Category = {
+  id: string;
+  title: string;
+  image: string;
+  bg: string;
+  border: string;
+};
+
+export const homeProducts: Product[] = [
   {
     id: "1",
     title: "Organic Bananas",
@@ -6,6 +23,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1603833665858-e61d17a86224?q=80&w=800&auto=format&fit=crop",
+    category: "Fresh Fruits & Vegetable",
   },
   {
     id: "2",
@@ -14,6 +32,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop",
+    category: "Fresh Fruits & Vegetable",
   },
   {
     id: "3",
@@ -22,6 +41,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?q=80&w=800&auto=format&fit=crop",
+    category: "Fresh Fruits & Vegetable",
   },
   {
     id: "4",
@@ -30,6 +50,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop",
+    category: "Fresh Fruits & Vegetable",
   },
   {
     id: "5",
@@ -38,6 +59,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?q=80&w=800&auto=format&fit=crop",
+    category: "Groceries",
   },
   {
     id: "6",
@@ -46,6 +68,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=800&auto=format&fit=crop",
+    category: "Groceries",
   },
   {
     id: "7",
@@ -54,6 +77,7 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1603048297172-c92544798d5a?q=80&w=800&auto=format&fit=crop",
+    category: "Meat & Fish",
   },
   {
     id: "8",
@@ -62,10 +86,11 @@ export const homeProducts = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1604503468506-a8da13d82791?q=80&w=800&auto=format&fit=crop",
+    category: "Meat & Fish",
   },
 ];
 
-export const exploreCategories = [
+export const exploreCategories: Category[] = [
   {
     id: "c1",
     title: "Fresh Fruits\n& Vegetable",
@@ -116,7 +141,7 @@ export const exploreCategories = [
   },
 ];
 
-export const beverages = [
+export const beverages: Product[] = [
   {
     id: "b1",
     title: "Diet Coke",
@@ -124,6 +149,7 @@ export const beverages = [
     price: "$1.99",
     image:
       "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
   {
     id: "b2",
@@ -132,6 +158,7 @@ export const beverages = [
     price: "$1.50",
     image:
       "https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
   {
     id: "b3",
@@ -140,6 +167,7 @@ export const beverages = [
     price: "$15.99",
     image:
       "https://images.unsplash.com/photo-1600271886742-f049cd451bba?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
   {
     id: "b4",
@@ -148,6 +176,7 @@ export const beverages = [
     price: "$15.99",
     image:
       "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
   {
     id: "b5",
@@ -156,6 +185,7 @@ export const beverages = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
   {
     id: "b6",
@@ -164,10 +194,11 @@ export const beverages = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1581636625402-29b2a704ef13?q=80&w=800&auto=format&fit=crop",
+    category: "Beverages",
   },
 ];
 
-export const searchResults = [
+export const searchResults: Product[] = [
   {
     id: "s1",
     title: "Egg Chicken Red",
@@ -175,6 +206,7 @@ export const searchResults = [
     price: "$1.99",
     image:
       "https://images.unsplash.com/photo-1506976785307-8732e854ad03?q=80&w=800&auto=format&fit=crop",
+    category: "Dairy & Eggs",
   },
   {
     id: "s2",
@@ -183,6 +215,7 @@ export const searchResults = [
     price: "$1.50",
     image:
       "https://images.unsplash.com/photo-1518569656558-1f25e69d93d7?q=80&w=800&auto=format&fit=crop",
+    category: "Dairy & Eggs",
   },
   {
     id: "s3",
@@ -191,6 +224,7 @@ export const searchResults = [
     price: "$15.99",
     image:
       "https://images.unsplash.com/photo-1551462147-37885acc36f1?q=80&w=800&auto=format&fit=crop",
+    category: "Bakery & Snacks",
   },
   {
     id: "s4",
@@ -199,6 +233,7 @@ export const searchResults = [
     price: "$15.99",
     image:
       "https://images.unsplash.com/photo-1617093727343-374698b1b08d?q=80&w=800&auto=format&fit=crop",
+    category: "Bakery & Snacks",
   },
   {
     id: "s5",
@@ -207,6 +242,7 @@ export const searchResults = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1571197119738-26123cbf7b9d?q=80&w=800&auto=format&fit=crop",
+    category: "Dairy & Eggs",
   },
   {
     id: "s6",
@@ -215,5 +251,20 @@ export const searchResults = [
     price: "$4.99",
     image:
       "https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop",
+    category: "Bakery & Snacks",
   },
 ];
+
+const products: Product[] = [...homeProducts, ...beverages, ...searchResults];
+const categories: Category[] = exploreCategories;
+
+const mockData = {
+  homeProducts,
+  exploreCategories,
+  beverages,
+  searchResults,
+  products,
+  categories,
+};
+
+export default mockData;

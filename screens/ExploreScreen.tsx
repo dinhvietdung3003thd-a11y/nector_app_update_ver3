@@ -2,26 +2,33 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   FlatList,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import BottomTabBar from "../components/BottomTabBar";
-import SearchBar from "../components/SearchBar";
-import { exploreCategories } from "../data/mockData";
+import CategoryCard from "../components/CategoryCard";
+import mockData from "../data/mockData";
 
 type Props = {
+  onBack: () => void;
   onOpenCategory: (category: any) => void;
+  onOpenSearch: () => void;
   onGoHome: () => void;
   onGoExplore: () => void;
+  onGoCart: () => void;
+  onGoFavourite: () => void;
 };
 
 export default function ExploreScreen({
+  onBack,
   onOpenCategory,
+  onOpenSearch,
   onGoHome,
   onGoExplore,
+  onGoCart,
+  onGoFavourite,
 }: Props) {
   return (
     <View style={styles.container}>
@@ -30,47 +37,61 @@ export default function ExploreScreen({
         <View style={styles.statusIcons}>
           <Ionicons name="cellular" size={18} color="#181725" />
           <Ionicons name="wifi" size={18} color="#181725" />
-          <Ionicons name="battery-full" size={22} color="#181725" />
+          <Ionicons name="battery-full" size={18} color="#181725" />
         </View>
       </View>
 
-      <Text style={styles.title}>Find Products</Text>
+      <View style={styles.headerRow}>
+        <TouchableOpacity onPress={onBack}>
+          <Ionicons name="chevron-back" size={24} color="#181725" />
+        </TouchableOpacity>
 
-      <View style={styles.searchWrap}>
-        <SearchBar />
+        <Text style={styles.title}>Find Products</Text>
+
+        <View style={{ width: 24 }} />
       </View>
 
+      <TouchableOpacity
+        style={styles.searchBar}
+        activeOpacity={0.8}
+        onPress={onOpenSearch}
+      >
+        <Ionicons name="search-outline" size={20} color="#7C7C7C" />
+        <Text style={styles.searchPlaceholder}>Search Store</Text>
+      </TouchableOpacity>
+
       <FlatList
-        data={exploreCategories}
+        data={mockData.exploreCategories}
         keyExtractor={(item) => item.id}
         numColumns={2}
-        contentContainerStyle={styles.listContent}
         columnWrapperStyle={styles.column}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[
-              styles.categoryCard,
-              { backgroundColor: item.bg, borderColor: item.border },
-            ]}
-            activeOpacity={0.85}
-            onPress={() => onOpenCategory(item)}
-          >
-            <Image source={{ uri: item.image }} style={styles.categoryImage} />
-            <Text style={styles.categoryText}>{item.title}</Text>
-          </TouchableOpacity>
+          <CategoryCard item={item} onPress={() => onOpenCategory(item)} />
         )}
+        showsVerticalScrollIndicator={false}
       />
 
-      <BottomTabBar active="explore" onGoHome={onGoHome} onGoExplore={onGoExplore} />
+      <BottomTabBar
+        active="explore"
+        onGoHome={onGoHome}
+        onGoExplore={onGoExplore}
+        onGoCart={onGoCart}
+        onGoFavourite={onGoFavourite}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    paddingHorizontal: 25,
+    paddingTop: 12,
+  },
   statusBar: {
     height: 44,
-    paddingHorizontal: 25,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -85,46 +106,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 6,
   },
-  title: {
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 12,
-    textAlign: "center",
+  },
+  title: {
     fontSize: 20,
     fontWeight: "700",
     color: "#181725",
   },
-  searchWrap: {
-    paddingHorizontal: 25,
+  searchBar: {
     marginTop: 20,
-    marginBottom: 20,
+    height: 51,
+    borderRadius: 15,
+    backgroundColor: "#F2F3F2",
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchPlaceholder: {
+    marginLeft: 8,
+    fontSize: 14,
+    color: "#7C7C7C",
   },
   listContent: {
-    paddingHorizontal: 25,
-    paddingBottom: 120,
+    paddingTop: 20,
+    paddingBottom: 110,
   },
   column: {
     justifyContent: "space-between",
     marginBottom: 15,
-  },
-  categoryCard: {
-    width: "47.5%",
-    minHeight: 189,
-    borderRadius: 18,
-    borderWidth: 1,
-    padding: 16,
-    alignItems: "center",
-  },
-  categoryImage: {
-    width: 110,
-    height: 90,
-    resizeMode: "cover",
-    borderRadius: 14,
-    marginBottom: 20,
-  },
-  categoryText: {
-    textAlign: "center",
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#181725",
-    lineHeight: 22,
   },
 });

@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import BeveragesScreen from "../screens/BeveragesScreen";
+import CartScreen from "../screens/CartScreen";
 import ExploreScreen from "../screens/ExploreScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
+import FilterScreen from "../screens/FilterScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
+import SearchScreen from "../screens/SearchScreen";
 
-type ScreenName = "home" | "productDetail" | "explore" | "beverages";
+type ScreenName =
+  | "home"
+  | "explore"
+  | "beverages"
+  | "productDetail"
+  | "search"
+  | "filters"
+  | "cart"
+  | "favourite";
 
 export default function Index() {
   const [screen, setScreen] = useState<ScreenName>("home");
@@ -19,35 +31,26 @@ export default function Index() {
             setSelectedProduct(item);
             setScreen("productDetail");
           }}
-        />
-      );
-
-    case "productDetail":
-      return (
-        <ProductDetailScreen
-          item={
-            selectedProduct || {
-              title: "Naturel Red Apple",
-              subtitle: "1kg, Price",
-              price: "$4.99",
-              image:
-                "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?q=80&w=800&auto=format&fit=crop",
-            }
-          }
-          onBack={() => setScreen("home")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
         />
       );
 
     case "explore":
       return (
         <ExploreScreen
-          onGoHome={() => setScreen("home")}
-          onGoExplore={() => setScreen("explore")}
+          onBack={() => setScreen("home")}
+          onOpenSearch={() => setScreen("search")}
           onOpenCategory={(category: any) => {
-            if (category.title.toLowerCase().includes("beverages")) {
+            const title = category?.title?.toLowerCase?.() || "";
+            if (title.includes("beverage")) {
               setScreen("beverages");
             }
           }}
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
         />
       );
 
@@ -55,16 +58,83 @@ export default function Index() {
       return (
         <BeveragesScreen
           onBack={() => setScreen("explore")}
-          onGoHome={() => setScreen("home")}
-          onGoExplore={() => setScreen("explore")}
           onOpenProduct={(item: any) => {
             setSelectedProduct(item);
             setScreen("productDetail");
           }}
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
+          onGoAccount={() => {}}
+        />
+      );
+
+    case "productDetail":
+      return (
+        <ProductDetailScreen
+          product={selectedProduct}
+          onBack={() => {
+            if (
+              selectedProduct?.category &&
+              selectedProduct.category.toLowerCase().includes("beverage")
+            ) {
+              setScreen("beverages");
+            } else {
+              setScreen("home");
+            }
+          }}
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
+        />
+      );
+
+    case "search":
+      return (
+        <SearchScreen
+          onBack={() => setScreen("explore")}
+          onOpenFilters={() => setScreen("filters")}
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
+          onGoAccount={() => {}}
+        />
+      );
+
+    case "filters":
+      return (
+        <FilterScreen
+          onBack={() => setScreen("search")}
+          onApply={() => setScreen("search")}
+        />
+      );
+
+    case "cart":
+      return (
+        <CartScreen
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
+          onGoAccount={() => {}}
+        />
+      );
+
+    case "favourite":
+      return (
+        <FavoritesScreen
+          onGoHome={() => setScreen("home")}
+          onGoExplore={() => setScreen("explore")}
+          onGoCart={() => setScreen("cart")}
+          onGoFavourite={() => setScreen("favourite")}
+          onGoAccount={() => {}}
         />
       );
 
     default:
-      return null;
+      return <HomeScreen onExplore={() => setScreen("explore")} onOpenProduct={() => {}} onGoCart={() => setScreen("cart")} onGoFavourite={() => setScreen("favourite")} />;
   }
 }
